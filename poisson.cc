@@ -29,8 +29,7 @@ int main() {
         
     }
     for (int i = 0; i < 12; ++i) {
-      double c = poisson(mu, i);
-      double Warsch = c*N;
+      double Warsch = poisson(mu, i)*N;
       fout1 << i << " " << zaehler[i] << "\n";
       fout2 << i << " " << zaehler[i] << " " << Warsch <<"\n";
       std::cout << i << " " << zaehler[i] << " " << Warsch << std::endl;
