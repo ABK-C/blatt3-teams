@@ -5,6 +5,7 @@
 
 double mu = 3.11538;
 int ndof = 233;
+double Schritte = 0.01;
 
 double prob(std::vector<int> daten, double mu) {
   double Likelihood = 1;
@@ -53,7 +54,7 @@ int main() {
     }
     double likelihood = prob(daten, mu);
     std::cout << likelihood << std::endl;
-    for (double mue = 0 ; mue < 6.1 ; mue = mue + 0.01) {
+    for (double mue = 0 ; mue < 6 ; mue = mue + Schritte) {
       double likelihood = prob(daten, mue);
       fout1 << mue << " " << likelihood << "\n";
       double likelihood_2 = -2* log (likelihood);
