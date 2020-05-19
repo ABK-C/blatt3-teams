@@ -19,22 +19,17 @@ double prob(std::vector<int> daten, double mu) {
   return Likelihood;
 }
 
-double Quotient(std::vector<int> daten, double mu) {
-  double Likelihood = 1;
+double Likelihood_k(std::vector<int> daten, double mu) {
   double Likelihood_k = 1;
   for (int k : daten){
-    double mu_k = pow(mu, k);
+    mu = k;
     double k_k = pow(k, k);
-    double exp_mu = exp(-mu);
     double exp_k = exp(-k);
     double k_Fak = tgamma(k+1);
-    double Poisson = mu_k * exp_mu * (1/(k_Fak));
     double Poisson_k = k_k * exp_k * (1/(k_Fak));
-    Likelihood = Likelihood * Poisson;
     Likelihood_k = Likelihood_k * Poisson_k;
  }
- double quotient = Likelihood/Likelihood_k; 
- return quotient;
+ return Likelihood_k;
 }
 
 
@@ -62,8 +57,8 @@ int main() {
       double likelihood_3 = -2* log (likelihood) - -2* log(prob(daten,mu));
       fout3 << mue << " " << likelihood_3 << "\n";
     }
-    double quotient = Quotient(daten,mu);
-    std::cout << quotient << std::endl;
+    double quotient = prob(daten,mu)/Likelihood_k(daten,mu);
+    std::cout << -2*log(quotient) << std::endl;
     double z = (-2*log(quotient)-ndof)/(sqrt(2*ndof));
     std::cout << z << std::endl;
     fin.close();
